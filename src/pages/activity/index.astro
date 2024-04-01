@@ -27,11 +27,9 @@ const categoryPosts = ACTIVITY_CATEGORY.map(item => ({
   description={t("blog.activity.explore")}
 >
 <!-- 活动：捕捉Nacos动态，链接开源脉搏。 -->
-<BlogTop title={t('commmon.header.comm.active')}  type="home" category={ACTIVITY_CATEGORY} />
-  <div class="bg-gray-14">
+<BlogTop source="activity" title={t('commmon.header.comm.active')}  type="home" category={ACTIVITY_CATEGORY} />
     <BlogContent source="activity" categoryPosts={categoryPosts} />
     <Footer />
-  </div>
 </BaseLayout>
 <style>
   main {

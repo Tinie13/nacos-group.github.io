@@ -8,7 +8,7 @@ sidebar:
 
 # Nacos 系统参数介绍
 
-> 文档优化中......
+> 该文档即将废弃，Server的参数推荐查看[运维手册-系统参数](../../manual/admin/system-configurations.md)，Client的参数推荐查看[用户手册-客户端参数 TODO](#nacos-java-client)
 
 ## Nacos Server
 
@@ -77,8 +77,8 @@ Nacos从1.3版本开始使用HikariCP连接池，但在1.4.1版本前，连接�
 
 |参数名	|含义	 |     可选值	 |     默认值| 支持版本 |
 |------|------|-----------|-----------------|-------|
-|endpoint| 连接Nacos Server指定的连接点，可以参考[文档](https://nacos.io/zh-cn/blog/address-server.html) | 域名 | 空 | >= 0.1.0 |
-|endpointPort| 连接Nacos Server指定的连接点端口，可以参考[文档](https://nacos.io/zh-cn/blog/address-server.html) | 合法端口号 | 空 | >= 0.1.0 |
+|endpoint| 连接Nacos Server指定的连接点，可以参考[文档](https://nacos.io/blog/case-address-server/) | 域名 | 空 | >= 0.1.0 |
+|endpointPort| 连接Nacos Server指定的连接点端口，可以参考[文档](https://nacos.io/blog/case-address-server/) | 合法端口号 | 空 | >= 0.1.0 |
 |namespace| 命名空间的ID | 命名空间的ID | config模块为空，naming模块为public | >= 0.8.0 |
 |serverAddr| Nacos Server的地址列表，这个值的优先级比endpoint高 | ip:port,ip:port,... | 空 | >= 0.1.0 |
 |JM.LOG.PATH(-D)| 客户端日志的目录 | 目录路径 | 用户根目录 | >= 0.1.0 |

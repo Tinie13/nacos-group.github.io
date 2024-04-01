@@ -6,7 +6,7 @@ import { fileWithBase } from '@starlight/utils/base';
 import { createHead } from '@starlight/utils/head';
 import { localizedUrl } from '@starlight/utils/localizedUrl';
 import type { Props } from '@starlight/props';
-import _ from 'lodash';
+import get from 'lodash.get';
 import { ViewTransitions } from 'astro:transitions';
 
 const { entry, lang } = Astro.props;
@@ -16,8 +16,8 @@ const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : undefined;
 const description = data.description || config.description;
-const originKeywords = _.get(data, 'keywords', description);
-const keywords = _.isArray(originKeywords)
+const originKeywords = get(data, 'keywords', description);
+const keywords = Array.isArray(originKeywords)
   ? originKeywords.join(',')
   : originKeywords;
 
@@ -151,7 +151,7 @@ const head = createHead(headDefaults, config.head, data.head);
     t.type = 'text/javascript';
     t.async = true;
     t.src =
-      '//g.alicdn.com/aes/??tracker/3.3.4/index.js,tracker-plugin-pv/3.0.5/index.js,tracker-plugin-event/3.0.0/index.js,tracker-plugin-autolog/3.0.3/index.js,tracker-plugin-survey/3.0.3/index.js';
+      '//g.alicdn.com/aes/??tracker/3.3.4/index.js,tracker-plugin-pv/3.0.5/index.js,tracker-plugin-event/3.0.0/index.js,tracker-plugin-autolog/3.0.3/index.js,tracker-plugin-survey/3.0.3/index.js,tracker-plugin-jserror/3.0.3/index.js,tracker-plugin-resourceError/3.0.3/index.js';
     t.onload = function () {
       if (window.location.hostname !== 'nacos.io') {
         return;
@@ -173,12 +173,23 @@ const head = createHead(headDefaults, config.head, data.head);
         aes.use(AESPluginEvent, window.AESPluginEventConfig || {}),
         aes.use(AESPluginSurvey, window.AESPluginEventConfig || {}),
         aes.use(AESPluginAutolog, window.AESPluginAutologConfig || {}),
+        aes.use(AESPluginJSError, window.AESPluginJSError || {}),
+        aes.use(AESPluginResourceError, window.AESPluginResourceError || {}),
       ];
     };
     setTimeout(function () {
       d.getElementsByTagName('body')[0].appendChild(t);
     }, 800);
   })(document);
+</script>
+
+<!--初始化Clarity SDK-->
+<script type="text/javascript">
+	(function(c,l,a,r,i,t,y){
+			c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+			t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+			y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+	})(window, document, "clarity", "script", "l4jzj6wbhh");
 </script>
 
 <script>

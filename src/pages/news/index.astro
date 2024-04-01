@@ -27,11 +27,9 @@ const categoryPosts = NEWS_CATEGORY.map(item => ({
   description={t("blog.activity.explore")}
 >
 <!-- 新闻：携手Nacos，共绘社区发展蓝图。 -->
-  <BlogTop title={t("commmon.header.comm.news")} type="home" category={NEWS_CATEGORY}/>
-  <div class="bg-gray-14">
+  <BlogTop source="news" title={t("commmon.header.comm.news")} type="home" category={NEWS_CATEGORY}/>
     <BlogContent source="news"  categoryPosts={categoryPosts} />
     <Footer />
-  </div>
 </BaseLayout>
 <style>
 

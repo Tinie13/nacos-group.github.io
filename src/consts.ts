@@ -3,13 +3,44 @@
 export const SITE_TITLE = 'Astro Blog';
 export const SITE_DESCRIPTION = 'Welcome to my website!';
 
+// 文档根据版本区分的提示banner
+export const DOCS_BANNER = {
+    latest: '',
+    next:'',
+    v1: '',
+    v2:'',
+}
+
+export const i18nMap = {
+    "blog": {
+        article: 'blog.article.technical',
+        case: 'blog.article.case.best.practices',
+        ecosystem: 'blog.article.ecosystem.articles',
+        all: 'blog.all.articles'
+    },
+    "news": {
+        announcement: 'blog.activity.community.announcement',
+        release: 'blog.activity.release.statement',
+        committer: 'page.blog.news.personnel.promotion',
+        cooperate: 'page.blog.news.community.cooperation',
+        all: 'page.blog.news.all'
+    },
+    "activity": {
+        'announcement': 'blog.activity.community.announcement',
+        'activity-preview': 'blog.activity.preview.event',
+        'activity-detail': 'blog.activity.detail.event',
+        'all': 'blog.activity.all.event'
+
+    }
+}
+
 export const BLOG_CATEGORY = [
     {
         type: 'article',
         title: '技术文章',
         href: '/blog/article'
     },
-    
+
     {
         type: 'ecosystem',
         title: '生态文章',
@@ -22,7 +53,7 @@ export const BLOG_CATEGORY = [
     },
     {
         type: 'all',
-        title:'全部文章',
+        title: '全部文章',
         href: '/blog/all'
     },
 ]
@@ -30,27 +61,27 @@ export const BLOG_CATEGORY = [
 export const NEWS_CATEGORY = [
     {
         type: 'announcement',
-        title:'社区公告',
+        title: '社区公告',
         href: '/news/announcement'
     },
     {
         type: 'release',
-        title:'发布声明',
+        title: '发布声明',
         href: '/news/release'
     },
     {
         type: 'committer',
-        title:'人员晋升',
+        title: '人员晋升',
         href: '/news/committer'
     },
     {
         type: 'cooperate',
-        title:'社区合作',
+        title: '社区合作',
         href: '/news/cooperate'
     },
     {
         type: 'all',
-        title:'全部新闻',
+        title: '全部新闻',
         href: '/news/all'
     }
 ]
@@ -58,29 +89,39 @@ export const NEWS_CATEGORY = [
 export const ACTIVITY_CATEGORY = [
     {
         type: 'announcement',
-        title:'社区公告',
+        title: '社区公告',
         href: '/activity/announcement'
     },
     {
         type: 'activity-preview',
-        title:'活动预告',
+        title: '活动预告',
         href: '/activity/activity-preview'
     },
     {
         type: 'activity-detail',
-        title:'活动详情',
+        title: '活动详情',
         href: '/activity/activity-detail'
     },
     {
         type: 'all',
-        title:'全部活动',
+        title: '全部活动',
         href: '/activity/all'
     }
 ]
 
 export const HEADER_ACTIVITY_CARD = [
-    { collection: 'blog', slug: 'ecosystem-nacos-controller-opensource' },
-    { collection: 'blog' , slug: 'announcement-2023-award' },
+    {
+        "collection": "blog",
+        "slug": "nacos-gvr7dx_awbbpb_sozg59av10r22awa",
+        "description": "云原生开源沙龙北京站开启报名",
+        "imageUrl": "https://img.alicdn.com/imgextra/i4/O1CN01bGnAVW1pFeLFnlaQL_!!6000000005331-2-tps-508-370.png"
+    },
+    {
+        "collection": "blog",
+        "slug": "announcement-2023-award",
+        "description": "Nacos 荣获三个开源奖项",
+        "imageUrl": "https://img.alicdn.com/imgextra/i4/O1CN01zfayJW1Lhe4kliPv9_!!6000000001331-2-tps-508-370.png"
+    }
 ]
 
 export const BLOG_IMAGE_SOURCE = [
@@ -94,3 +135,9 @@ export const BLOG_IMAGE_SOURCE = [
     "https://img.alicdn.com/imgextra/i2/O1CN01l7gM7r1Y4L5ngHWb8_!!6000000003005-2-tps-608-358.png",
     "https://img.alicdn.com/imgextra/i2/O1CN01oWfLB51kfENwUFaQw_!!6000000004710-2-tps-608-358.png"
 ]
+
+export const ALGOLIA_CONFIG = {
+    appId: '1QV814950M',
+    apiKey: '7445da3dec050d45d29f3fe93ed45af3',
+    indexName: 'nacos',
+}

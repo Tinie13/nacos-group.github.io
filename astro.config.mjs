@@ -38,6 +38,14 @@ export default defineConfig({
 				Header: './src/components/starlight/Header.astro',
 				Head: './src/components/starlight/Head.astro',
 				Sidebar: './src/components/starlight/Sidebar.astro',
+				PageFrame: './src/components/starlight/PageFrame.astro',
+				SkipLink: './src/components/starlight/SkipLink.astro',
+				TwoColumnContent: './src/components/starlight/TwoColumnContent.astro',
+				PageSidebar: './src/components/starlight/PageSidebar.astro',
+				PageTitle: './src/components/starlight/PageTitle.astro',
+				ContentPanel: './src/components/starlight/ContentPanel.astro',
+				Pagination: './src/components/starlight/Pagination.astro',
+				Banner: './src/components/starlight/Banner.astro'
 			},
 			editLink: {
 				baseUrl: 'https://github.com/nacos-group/nacos-group.github.io/tree/develop-astro-nacos',
@@ -74,10 +82,8 @@ export default defineConfig({
 		]
 	},
 	redirects: {
-		'/zh-cn/': '/',
 		'/en-us/': '/en/',
 		'/[...slug].html': '/[...slug]',
-		'/zh-cn/[...slug]': '/[...slug]',
 		'/docs/': '/docs/latest/what-is-nacos/',
 	}
 });

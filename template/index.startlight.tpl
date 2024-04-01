@@ -3,14 +3,12 @@ import type { InferGetStaticPropsType } from 'astro';
 import { generateRouteData } from './utils/route-data';
 import { paths } from './utils/routing';
 import Page from './components/Page.astro';
-import _ from 'lodash';
 
 export async function getStaticPaths() {
 	const currentPath = paths.filter((item) => {
 		// 支持类似 v2.3.2 的格式，默认slug会去掉 .
-		const slug = item.props.id.replace(/.md$/, "") === item.props.slug ? item.props.slug : item.props.id.replace(/.md$/, "")
+		const slug = item.props.id.replace(/.(md|mdx)$/, "") === item.props.slug ? item.props.slug : item.props.id.replace(/.(md|mdx)$/, "")
 		const [version, lang, ...rest] = slug.split('/');
-
 		/**
 		 * 默认每个目录都会生成一份路由，因为有版本的概念，会多生成一份
 		 * 所以使用中文生成的路由，同时把相关的信息刷成英文格式
@@ -39,7 +37,30 @@ const categorySidebar = (await import.meta.glob("../../../src/content/**/_sideba
 
 const regex = /\/content\/docs\/(latest|ebook|next|v[0-9]\.[0-9]\.[0-9]|v[0-9]\.[0-9]|v[0-9]|[0-9]\.[0-9]\.[0-9]|[0-9]\.[0-9]|[0-9]).*/;
 const categories = {}
-_.each(categorySidebar,(item, key) => {
+
+const _each = (collection, iteratee) => {
+	if (Array.isArray(collection)) {
+		for (let i = 0; i < collection.length; i++) {
+			iteratee(collection[i], i, collection);
+		}
+	} else if (collection !== null && typeof collection === 'object') {
+		for (const key in collection) {
+			if (Object.prototype.hasOwnProperty.call(collection, key)) {
+				iteratee(collection[key], key, collection);
+			}
+		}
+	}
+};
+
+const _join = (array, separator = ',') => {
+  if (!Array.isArray(array)) {
+    throw new Error('First argument must be an array.');
+  }
+
+  return array.join(separator);
+};
+
+_each(categorySidebar,(item, key) => {
 	const match = regex.exec(key);
 	if(match && match[1]) {
 		const version = match[1];
@@ -59,17 +80,17 @@ function makeTranslate(list: any[], version: string) {
 			};
 		}
 		if(item['autogenerate']) {
-			const [curVersion, ...rest] = _.split(item['autogenerate']['directory'], '/');
+			const [curVersion, ...rest] = item['autogenerate']['directory'].split('/');
 			const match = regex.exec(curVersion);
 			if(!match) {
 				item['autogenerate']['directory'] = `${version}/zh-cn/${item['autogenerate']['directory']}`
 			}
 		}
 		if(item['link']) {
-			const [_docs, ...rest] = _.split(item['link'], '/');
+			const [_docs, ...rest] = item['link'].split('/');
 			const match = regex.exec(rest[0]);
 			if(!match) {
-				item['link'] = `${_docs}/${version}/${_.join(rest, '/')}`
+				item['link'] = `${_docs}/${version}/${_join(rest, '/')}`
 			}
 		}
 		if(item['items']) {

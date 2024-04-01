@@ -1,5 +1,5 @@
 ---
-import { getLanguageFromURL } from "../../util";
+import { getLanguageFromURL } from "@/utils/util";
 import LinkList from "../common/LinkList.astro";
 
 export interface Props {
@@ -56,4 +56,5 @@ const linkItems = [
 ]
 
 ---
+<!-- 文档右侧的贡献板块 -->
 <LinkList headingTitle="rightSidebar.contribute" linkItems={linkItems} />
