@@ -4,7 +4,7 @@ import { Product } from "./common/Product";
 import { hoverNacosData,hoverOpenSergoData } from "../utils";
 import { ProductPanel } from "./common/ProductPanel";
 
-export const ControlPanel = ({}) => {
+export const ControlPanel = ({ }) => {
   return (
     <ProductPanel title="控制面">
       <Product

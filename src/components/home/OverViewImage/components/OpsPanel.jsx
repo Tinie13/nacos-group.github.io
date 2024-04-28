@@ -1,7 +1,7 @@
 import React from "react";
 import { Panel } from "./common/Panel";
 import { Product } from "./common/Product";
-import { hoverOpenkruiseData,hoverKubernetesData } from "../utils";
+import { hoverOpenkruiseData, hoverKubernetesData } from "../utils";
 import { ProductPanel } from "./common/ProductPanel";
 
 export const OpsPanel = () => {
