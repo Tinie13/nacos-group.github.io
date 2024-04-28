@@ -2,21 +2,32 @@
 const mediaResource = [
   {
     checked: true,
-    src: "https://cloud.video.taobao.com/play/u/3897629815/p/1/e/6/t/1/237687627217.mp4",
-    description: "2 Hours to learn Nacos steps by steps.",
+    src: "https://cloud.video.taobao.com/vod/play/REFkazc0bXZaVE82emRHbklyTEdsNjFUYnBNSkd6cmpoU0U5cG9KRWtZQzZQZWw1SnpKVVVCTlh4OVFON0V5UUVMUDduY1RJak82VE1sdXdHTjNOaHc9PQ",
+    description: "Nacos ｜手动部署 Derby 数据库",
+    cover:'https://img.alicdn.com/imgextra/i2/O1CN01mZMLGh1WIsTB2WOEB_!!6000000002766-0-tps-2516-1282.jpg'
   },
   {
     checked: false,
-    src: "https://cloud.video.taobao.com/play/u/3897629815/p/1/e/6/t/1/308859040210.mp4",
-    description: "3 minutes to learn how to migrate to the cloud.",
+    src: "https://cloud.video.taobao.com/vod/play/REFkazc0bXZaVE82emRHbklyTEdsMWppZ21TWGh4TDE/U2FmT3I2OU9yZTZQZWw1SnpKVVVCTlh4OVFON0V5UUVMUDduY1RJak82VE1sdXdHTjNOaHc9PQ",
+    description: "Nacos ｜手动部署 MySQL 数据库",
+    cover:'https://img.alicdn.com/imgextra/i2/O1CN01S9Q8mE1FJvunXlzc2_!!6000000000467-0-tps-2296-1164.jpg'
   },
   {
     checked: false,
-    src: "https://cloud.video.taobao.com/play/u/3897629815/p/1/e/6/t/1/258260782833.mp4",
+    src: "https://cloud.video.taobao.com/vod/play/REFkazc0bXZaVE82emRHbklyTEdsMERLOHRmWmdQR1Ywcjl5dlM2Nk1YSzZQZWw1SnpKVVVCTlh4OVFON0V5UUVMUDduY1RJak82VE1sdXdHTjNOaHc9PQ",
     description:
-      "Introduction to the sixth generation instance specifications.",
+      "Nacos｜Docker 部署 Derby 和 MySQL 数据库",
+    cover:"https://img.alicdn.com/imgextra/i2/O1CN01MOLx6f1k1qMPncU8j_!!6000000004624-0-tps-2552-1158.jpg"
+  },
+  {
+    checked: false,
+    src: "https://cloud.video.taobao.com/vod/play/REFkazc0bXZaVE82emRHbklyTEdsNFFUMXFoNnp2NXBPaEFUNFNDYUVRRzZQZWw1SnpKVVVCTlh4OVFON0V5UUVMUDduY1RJak82VE1sdXdHTjNOaHc9PQ",
+    description:
+      "Nacos ｜入门样例",
+    cover:"https://img.alicdn.com/imgextra/i1/O1CN01fkLmjc1n7HuqYQst1_!!6000000005042-0-tps-2300-1166.jpg",
   },
 ];
+
 ---
 
 <card-player class="card-player block bg-gary-02 p-10">
@@ -30,24 +41,34 @@ const mediaResource = [
   <div
     class="bottom-media-card block w-full flex items-center justify-center h-fit"
   >
-    <div class="media-container h-[23rem] w-fit flex flex-nowrap justify-start">
-      {
+    <div class="media-container h-[23rem] w-fit flex flex-nowrap justify-start "
+    
+    >
+
+  {
         mediaResource.map((item, index) => {
-          const { src, description, checked } = item;
+          let { src, description, checked,cover } = item;
           return (
             <>
               <input
                 type="radio"
                 name="silder"
                 id={`c${index}`}
-                checked={checked}
+                
               />
               <label
+                input-id={`c${index}`}
                 for={`c${index}`}
-                class="card overflow-hidden flex flex-col justify-between cursor-pointer p-4 rounded-3xl mx-2"
+                class="card overflow-hidden flex flex-col justify-between cursor-pointer rounded-3xl mx-2 relative"
               >
-                <div class="row flex align-center flex-nowrap opacity-0 w-full">
-                  <a class="btn btn-secondary btn-sm rounded-3xl mr-4 text-xs font-normal">
+                
+                <video id={`v${index}`} poster={cover}  class=' h-full rounded-3xl object-cover'  >
+                  <source src={src}  type="video/mp4" />
+                </video>
+                <a 
+                  class="video-play-bt btn btn-secondary btn-sm rounded-3xl mr-4 text-xs font-normal absolute bottom-2.5 left-3 "
+                  video-id={`v${index}`}
+                >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -67,13 +88,6 @@ const mediaResource = [
                     </svg>
                     <span>PLAY VIDEO</span>
                   </a>
-                  <a class="btn btn-secondary btn-sm rounded-3xl mr-4 text-xs">
-                    <img class="w-12 h-5" src="/bilibili.png" />
-                  </a>
-                </div>
-                <div class="description opacity-0 w-full text-gray-02 text-sm">
-                  {description}
-                </div>
               </label>
             </>
           );
@@ -125,6 +139,66 @@ const mediaResource = [
   class HomeCardPlayer extends HTMLElement {
     constructor() {
       super();
+      // 初始化时不要访问 DOM 或设置属性
+      this.currentInputid = "c0";
+        this.flag = true;
+        // 由于在 constructor 中无法访问 DOM，所以不在这里绑定事件
+    }
+    connectedCallback() {
+        var _this = this;
+        this.cardSolution = this.querySelector(".media-container");
+        const videoPlayButtons = this.querySelectorAll(".video-play-bt");
+        // 设置初始选中的输入元素为checked
+        _this.setInitialCheckedState();
+        if (this.cardSolution) {
+            this.cardSolution.addEventListener("click", function(e) {
+                _this.selectedLabel(e);
+            });
+        }
+        
+  if (videoPlayButtons) {
+    videoPlayButtons.forEach(button => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation(); // 添加这一行防止事件向上冒泡
+        this.toggleVideoPlay(e); // 这里不需要再次阻止冒泡
+      })
+    });
+  }
+    }
+    setInitialCheckedState() {
+      let initialInput = this.querySelector('input[type=radio]#c0');
+      if (initialInput) {
+        initialInput.checked = true;
+      }
+    }
+
+    toggleVideoPlay(e) {
+      const videoId = e.target.getAttribute('video-id');
+      const video = this.querySelector(`video#${videoId}`);
+      if (video) {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+  }
+
+    selectedLabel(e) {
+        var _this = this;
+        var inputId = e.target.getAttribute("input-id");
+        if (this.flag && inputId && inputId !== this.currentInputid) {
+            this.currentInputid = inputId;
+            this.flag = false;
+            setTimeout(function() {
+                _this.flag = true;
+            }, 200);
+            var input = this.querySelector('input[type=radio]#' + inputId);
+            if (input && !input.checked) {
+              console.log('input.checked',input.checked);
+                input.checked = true;
+            }
+        }
     }
   }
   customElements.define("card-player", HomeCardPlayer);
@@ -138,7 +212,9 @@ const mediaResource = [
       background-size: cover;
       transition: 0.6s cubic-bezier(0.28, -0.03, 0, 0.99);
       /* box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.8); */
+      
     }
+    
     .media-container > .card:first-of-type {
       margin-left: 0;
     }
@@ -169,7 +245,7 @@ const mediaResource = [
     input:checked + label .description {
       animation: showcontent 0.3s ease-in-out 0.3s 1 forwards;
     }
-    .card[for="c0"] {
+    /* .card[for="c0"] {
       background-image: url("https://img.alicdn.com/imgextra/i4/O1CN01imuhna1FvwkTxTaWu_!!6000000000550-2-tps-1280-816.png");
     }
     .card[for="c1"] {
@@ -178,6 +254,9 @@ const mediaResource = [
     .card[for="c2"] {
       background-image: url("https://img.alicdn.com/imgextra/i4/O1CN01imuhna1FvwkTxTaWu_!!6000000000550-2-tps-1280-816.png");
     }
+    .card[for="c3"] {
+      background-image: url("https://img.alicdn.com/imgextra/i4/O1CN01imuhna1FvwkTxTaWu_!!6000000000550-2-tps-1280-816.png");
+    } */
 
     /* 小于50rem  小于 800px */
     @media (max-width: 50rem) {
