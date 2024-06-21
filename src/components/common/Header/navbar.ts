@@ -60,4 +60,13 @@ export default [
     target: "_blank",
     route: "http://console.nacos.io/nacos/index.html",
   },
+  {
+    label: "答疑样例",
+    translations: {
+      en: "FAQ",
+    },
+    trigger: "click",
+    target: "_self",
+    route: "/wuyi/",
+  },
 ];

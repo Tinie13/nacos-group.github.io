@@ -31,6 +31,7 @@ function sendFetch(url, params = null, method = 'GET') {
             }
         }
 
+
         try {
             const response = await fetch(url, {
                 mode: 'cors',

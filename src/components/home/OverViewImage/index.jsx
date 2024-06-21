@@ -2,11 +2,6 @@ import React from "react";
 import "tailwindcss/tailwind.css";
 import "./style.css";
 import { useState } from "preact/hooks";
-import { Arrow } from "./components/common/Arrow";
-import { Panel } from "./components/common/Panel";
-import { Product } from "./components/common/Product";
-
-import { PopupContent } from "./components/common/PopupContent";
 import { GovernancePanel } from "./components/GovernancePanel";
 import { ControlPanel } from "./components/ControlPanel";
 import { OpsPanel } from "./components/OpsPanel";
@@ -50,7 +45,7 @@ function App({ colors = defaultColorConfig, linkStyle = "text-sm", className = '
       }}
     >
       <div
-        class={` flex flex-col justify-around px-2 pt-14 pb-2 overflow-hidden ` + className}
+        class={` flex flex-col justify-around px-2 pt-4 pb-2 ` + className}
         id="overview-image-root"
         style={{
           background: colors.background,
